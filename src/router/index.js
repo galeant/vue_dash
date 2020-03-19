@@ -58,7 +58,7 @@ const Users = () => import('@/views/users/Users')
 const User = () => import('@/views/users/User')
 
 // Custom
-// const CRegister = () => import('@/views/custom/Register')
+const CRegister = () => import('@/views/custom/CRegister')
 
 Vue.use(Router)
 
@@ -373,7 +373,7 @@ function configRoutes () {
         {
           path: 'register',
           name: 'Register',
-          component: Register
+          component: CRegister
         }
       ]
     },
