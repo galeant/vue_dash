@@ -57,14 +57,33 @@ const Register = () => import('@/views/pages/Register')
 const Users = () => import('@/views/users/Users')
 const User = () => import('@/views/users/User')
 
+// Custom
+// const CRegister = () => import('@/views/custom/Register')
+
 Vue.use(Router)
 
-export default new Router({
-  mode: 'hash', // https://router.vuejs.org/api/#mode
+
+
+const router = new Router({
+  // mode: 'hash', // https://router.vuejs.org/api/#mode
+  mode:'history',
   linkActiveClass: 'active',
   scrollBehavior: () => ({ y: 0 }),
   routes: configRoutes()
 })
+// router.beforeEach((to, from, next) => {
+//   if(from.name === 'Login'){
+//     return;
+//   }
+//   if(to.matched.some(record => record.meta.reqAuth)){
+//     next({
+//       name:'Login'
+//     })
+//   }else{
+//     next();
+//   }
+// })
+export default router;
 
 function configRoutes () {
   return [
@@ -72,6 +91,18 @@ function configRoutes () {
       path: '/',
       redirect: '/dashboard',
       name: 'Home',
+      // meta:{
+      //   reqAuth:false
+      // },
+      beforeEnter: (to, from, next) => {
+        if(localStorage.token){
+          next()
+        }else{
+          next({
+              name:'Login'
+              })
+        }
+      },
       component: TheContainer,
       children: [
         {
@@ -328,7 +359,16 @@ function configRoutes () {
         {
           path: 'login',
           name: 'Login',
-          component: Login
+          component: Login,
+          beforeEnter: (to, from, next) => {
+            if(localStorage.token){
+              next({
+                name:'Home'
+              })
+            }else{
+              next();
+            }
+          }
         },
         {
           path: 'register',
@@ -336,7 +376,18 @@ function configRoutes () {
           component: Register
         }
       ]
+    },
+    {
+      path:"*",
+      redirect:{
+        name:'Page404'
+      }
+    },
+    {
+      path:"/logout",
+      name:"Logout",
     }
   ]
 }
+
 

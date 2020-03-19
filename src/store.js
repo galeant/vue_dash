@@ -4,7 +4,8 @@ Vue.use(Vuex)
 
 const state = {
   sidebarShow: 'responsive',
-  sidebarMinimize: false
+  sidebarMinimize: false,
+  isAuth:true
 }
 
 const mutations = {
@@ -18,6 +19,9 @@ const mutations = {
   },
   set (state, [variable, value]) {
     state[variable] = value
+  },
+  toAuth(state, payload){
+    state.isAuth = payload
   }
 }
 

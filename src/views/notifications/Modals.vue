@@ -53,7 +53,6 @@
     </div>
     <!-- Modal Component -->
     <CModal
-      title="Modal title"
       :show.sync="myModal"
     >
       Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -180,7 +179,7 @@ export default {
   name: 'Modals',
   data () {
     return {
-      myModal: false,
+      myModal: true,
       largeModal: false,
       smallModal: false,
       primaryModal: false,
